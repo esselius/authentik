@@ -23,9 +23,10 @@ class Command(BaseCommand):
                 for blueprint_path in options.get("blueprints", []):
                     content = BlueprintInstance(path=blueprint_path).retrieve()
                     importer = Importer.from_string(content)
-                    valid, _ = importer.validate()
+                    valid, logs = importer.validate()
                     if not valid:
                         self.stderr.write("blueprint invalid")
+                        self.stderr.write(logs)
                         sys_exit(1)
                     importer.apply()
 
