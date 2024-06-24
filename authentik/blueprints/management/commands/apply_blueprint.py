@@ -26,7 +26,8 @@ class Command(BaseCommand):
                     valid, logs = importer.validate()
                     if not valid:
                         self.stderr.write("blueprint invalid")
-                        self.stderr.write(logs)
+                        for x in logs:
+                            self.stderr.write(x.event)
                         sys_exit(1)
                     importer.apply()
 
